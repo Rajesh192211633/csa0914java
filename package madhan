@@ -1,0 +1,139 @@
+package madhan;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.util.Random;
+
+public class SwitchDashGame extends JPanel implements ActionListener {
+
+    private final int SCREEN_WIDTH = 600;
+    private final int SCREEN_HEIGHT = 600;
+    private final int DASH_WIDTH = 50;
+    private final int DASH_HEIGHT = 50;
+    private final int BALL_SIZE = 20;
+    private final int BALL_SPEED = 5;
+    private final int DELAY = 20;
+
+    private int dashX;
+    private int dashY;
+    private int ballX;
+    private int ballY;
+    private int ballDirection; // -1 for left, 1 for right
+    private Timer timer;
+    private boolean running;
+
+    public SwitchDashGame() {
+        this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
+        this.setBackground(Color.WHITE);
+        this.setFocusable(true);
+        this.addKeyListener(new MyKeyAdapter());
+        this.running = false;
+
+        initializeGame();
+    }
+
+    public void initializeGame() {
+        dashX = SCREEN_WIDTH / 2 - DASH_WIDTH / 2;
+        dashY = SCREEN_HEIGHT - DASH_HEIGHT - 20;
+        ballX = SCREEN_WIDTH / 2 - BALL_SIZE / 2;
+        ballY = 50;
+        ballDirection = 1; // Start moving right
+        running = true;
+
+        timer = new Timer(DELAY, this);
+        timer.start();
+    }
+
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        draw(g);
+    }
+
+    public void draw(Graphics g) {
+        if (running) {
+            // Draw dash
+            g.setColor(Color.BLUE);
+            g.fillRect(dashX, dashY, DASH_WIDTH, DASH_HEIGHT);
+
+            // Draw ball
+            g.setColor(Color.RED);
+            g.fillOval(ballX, ballY, BALL_SIZE, BALL_SIZE);
+
+        } else {
+            gameOver(g);
+        }
+    }
+
+    public void moveBall() {
+        ballY += BALL_SPEED;
+        if (ballY >= SCREEN_HEIGHT) {
+            // Ball has reached the bottom, reset position
+            ballX = new Random().nextInt(SCREEN_WIDTH - BALL_SIZE);
+            ballY = 50;
+        }
+    }
+
+    public void checkCollision() {
+        // Check if dash hits the ball
+        Rectangle dashRect = new Rectangle(dashX, dashY, DASH_WIDTH, DASH_HEIGHT);
+        Rectangle ballRect = new Rectangle(ballX, ballY, BALL_SIZE, BALL_SIZE);
+        
+        if (dashRect.intersects(ballRect)) {
+            // Ball is hit, reset its position
+            ballX = new Random().nextInt(SCREEN_WIDTH - BALL_SIZE);
+            ballY = 50;
+        } else if (ballY >= SCREEN_HEIGHT) {
+            // Ball has reached the bottom without being hit, game over
+            running = false;
+            timer.stop();
+        }
+    }
+
+    public void gameOver(Graphics g) {
+        // Game Over text
+        g.setColor(Color.RED);
+        g.setFont(new Font("Arial", Font.BOLD, 50));
+        FontMetrics metrics = getFontMetrics(g.getFont());
+        g.drawString("Game Over", (SCREEN_WIDTH - metrics.stringWidth("Game Over")) / 2, SCREEN_HEIGHT / 2);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (running) {
+            moveBall();
+            checkCollision();
+            repaint();
+        }
+    }
+
+    public class MyKeyAdapter extends KeyAdapter {
+        @Override
+        public void keyPressed(KeyEvent e) {
+            int key = e.getKeyCode();
+            if (key == KeyEvent.VK_LEFT) {
+                dashX -= 20; // Move dash left
+            } else if (key == KeyEvent.VK_RIGHT) {
+                dashX += 20; // Move dash right
+            }
+            // Ensure dash stays within screen bounds
+            if (dashX < 0) {
+                dashX = 0;
+            } else if (dashX > SCREEN_WIDTH - DASH_WIDTH) {
+                dashX = SCREEN_WIDTH - DASH_WIDTH;
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Switch Dash Game");
+        SwitchDashGame game = new SwitchDashGame();
+        frame.add(game);
+        frame.pack();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }
+}
