@@ -1,0 +1,19 @@
+public class GreatestUsingNestedIf {
+    public static void main(String[] args) {
+        int a = 10, b = 20, c = 15;
+
+        if (a > b) {
+            if (a > c) {
+                System.out.println("Greatest value is: " + a);
+            } else {
+                System.out.println("Greatest value is: " + c);
+            }
+        } else {
+            if (b > c) {
+                System.out.println("Greatest value is: " + b);
+            } else {
+                System.out.println("Greatest value is: " + c);
+            }
+        }
+    }
+}

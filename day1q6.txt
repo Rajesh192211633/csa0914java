@@ -1,0 +1,20 @@
+public class ConfusionMatrix {
+    public static void main(String[] args) {
+        // Assume a simple confusion matrix
+        int TP = 50; // True Positives
+        int TN = 30; // True Negatives
+        int FP = 10; // False Positives
+        int FN = 5;  // False Negatives
+
+        // F1 Score calculation
+        double precision = (double) TP / (TP + FP);
+        double recall = (double) TP / (TP + FN);
+        double f1Score = 2 * ((precision * recall) / (precision + recall));
+
+        System.out.println("TP: " + TP);
+        System.out.println("TN: " + TN);
+        System.out.println("FP: " + FP);
+        System.out.println("FN: " + FN);
+        System.out.println("F1 Score: " + f1Score);
+    }
+}

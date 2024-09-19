@@ -1,0 +1,28 @@
+public class ArrayExample {
+    public static void main(String[] args) {
+        int[] matrixA = new int[9];
+        int[] matrixB = new int[9];
+
+        // First loop from 1 to 9
+        for (int i = 0; i < 9; i++) {
+            matrixA[i] = i + 1;
+        }
+
+        // Second loop from 9 to 1
+        for (int i = 0; i < 9; i++) {
+            matrixB[i] = 9 - i;
+        }
+
+        // Print Matrix A
+        System.out.print("Matrix A: ");
+        for (int i : matrixA) {
+            System.out.print(i + " ");
+        }
+
+        // Print Matrix B
+        System.out.print("\nMatrix B: ");
+        for (int i : matrixB) {
+            System.out.print(i + " ");
+        }
+    }
+}

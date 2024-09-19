@@ -1,0 +1,14 @@
+public class StringExample {
+    public static void main(String[] args) {
+        // Constructors
+        String str1 = new String("Hello");
+        String str2 = "World";
+
+        // String methods
+        System.out.println("Concatenation: " + str1.concat(" " + str2));
+        System.out.println("Length of str1: " + str1.length());
+        System.out.println("Character at index 1 in str1: " + str1.charAt(1));
+        System.out.println("Substring of str2 from index 1 to 4: " + str2.substring(1, 4));
+        System.out.println("Upper case of str2: " + str2.toUpperCase());
+    }
+}

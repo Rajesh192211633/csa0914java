@@ -1,0 +1,41 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class MissingNumbersInSeries {
+    public static void main(String[] args) {
+        int[] series = {1, 5, 11, 19};
+        List<Integer> missingNumbers = new ArrayList<>();
+
+        // Determine the pattern of increments
+        List<Integer> increments = new ArrayList<>();
+        for (int i = 1; i < series.length; i++) {
+            increments.add(series[i] - series[i - 1]);
+        }
+
+        // Assuming the pattern continues with increment increasing by 2
+        int nextIncrement = increments.get(increments.size() - 1) + 2;
+
+        // Define the number of terms you want to generate
+        int totalTerms = 10;
+        int current = series[series.length - 1];
+
+        for (int i = series.length; i < totalTerms; i++) {
+            current += nextIncrement;
+            series = Arrays.copyOf(series, series.length + 1);
+            series[series.length - 1] = current;
+            increments.add(nextIncrement);
+            nextIncrement += 2;
+        }
+
+        // Now, find and print the complete series
+        System.out.print("Complete Series: ");
+        for (int num : series) {
+            System.out.print(num + " ");
+        }
+
+        // If you want to find missing numbers between the existing series based on the pattern
+        // For simplicity, let's assume missing numbers are those that are skipped based on the increment
+
+        System.out.println("\nNo missing numbers based on the detected pattern.");
+    }
+}

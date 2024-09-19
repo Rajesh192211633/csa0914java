@@ -1,0 +1,32 @@
+import java.util.Scanner;
+
+public class LuckGuess {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Guess your lucky number (1-5): ");
+        int choice = scanner.nextInt();
+
+        switch (choice) {
+            case 1:
+                System.out.println("Lucky Number 1: Great opportunities await you!");
+                break;
+            case 2:
+                System.out.println("Lucky Number 2: Be cautious today.");
+                break;
+            case 3:
+                System.out.println("Lucky Number 3: A pleasant surprise is coming.");
+                break;
+            case 4:
+                System.out.println("Lucky Number 4: Focus on your relationships.");
+                break;
+            case 5:
+                System.out.println("Lucky Number 5: Embrace change.");
+                break;
+            default:
+                System.out.println("Invalid choice. Please select a number between 1 and 5.");
+        }
+
+        scanner.close();
+    }
+}

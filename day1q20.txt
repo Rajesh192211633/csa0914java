@@ -1,0 +1,50 @@
+import java.util.Arrays;
+
+public class ArrayShift {
+    public static void main(String[] args) {
+        int[] A = {1, 2, 3, 4, 5};
+        int[] B = {6, 7, 8, 9, 10};
+
+        System.out.println("Original Array A: " + Arrays.toString(A));
+        System.out.println("Original Array B: " + Arrays.toString(B));
+
+        // Calculate the sum of both arrays
+        int sumA = Arrays.stream(A).sum();
+        int sumB = Arrays.stream(B).sum();
+
+        if (sumA > sumB) {
+            // Shift A left and B right
+            A = shiftLeft(A);
+            B = shiftRight(B);
+            System.out.println("Sum of A > Sum of B. Shifting A left and B right.");
+        } else {
+            // Shift A right and B left
+            A = shiftRight(A);
+            B = shiftLeft(B);
+            System.out.println("Sum of A <= Sum of B. Shifting A right and B left.");
+        }
+
+        System.out.println("Shifted Array A: " + Arrays.toString(A));
+        System.out.println("Shifted Array B: " + Arrays.toString(B));
+    }
+
+    // Method to shift array elements to the left using logical shift
+    public static int[] shiftLeft(int[] array) {
+        int first = array[0];
+        for (int i = 0; i < array.length - 1; i++) {
+            array[i] = array[i + 1] << 1; // Logical left shift by 1
+        }
+        array[array.length - 1] = first << 1; // Shift the first element and place at the end
+        return array;
+    }
+
+    // Method to shift array elements to the right using logical shift
+    public static int[] shiftRight(int[] array) {
+        int last = array[array.length - 1];
+        for (int i = array.length - 1; i > 0; i--) {
+            array[i] = array[i - 1] >> 1; // Logical right shift by 1
+        }
+        array[0] = last >> 1; // Shift the last element and place at the start
+        return array;
+    }
+}

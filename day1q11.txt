@@ -1,0 +1,18 @@
+public class AgeProblem {
+    public static void main(String[] args) {
+        int ageOlder = 28;
+        int ageYounger = 24;
+
+        // When older brother is 56
+        int ageOlderAt56 = 56;
+        int ageYoungerAt56 = ageYounger + (ageOlderAt56 - ageOlder);
+
+        System.out.println("When older brother is 56, younger brother will be: " + ageYoungerAt56);
+
+        // Age difference > 3 scenario
+        if (ageOlder - ageYounger > 3) {
+            int ageYoungerWhenOlderWas5 = 5 - (ageOlder - ageYounger);
+            System.out.println("When the older brother was 5, the younger brother was: " + ageYoungerWhenOlderWas5);
+        }
+    }
+}

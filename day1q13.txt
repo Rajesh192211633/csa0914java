@@ -1,0 +1,26 @@
+public class GreatestInLoops {
+    public static void main(String[] args) {
+        int[] loop1 = {3, 7, 1, 9};
+        int[] loop2 = {2, 5, 8, 6};
+
+        int max1 = loop1[0];
+        for (int num : loop1) {
+            if (num > max1) {
+                max1 = num;
+            }
+        }
+
+        int max2 = loop2[0];
+        for (int num : loop2) {
+            if (num > max2) {
+                max2 = num;
+            }
+        }
+
+        if (max1 > max2) {
+            System.out.println("Loop 1 contains the greatest value: " + max1);
+        } else {
+            System.out.println("Loop 2 contains the greatest value: " + max2);
+        }
+    }
+}
